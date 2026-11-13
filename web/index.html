@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10272a">
+  <title>Adaptive Travel Agent · 旅行规划</title>
+  <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="/style.css">
+  <script defer src="/vendor/leaflet/leaflet.js"></script>
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/">Adaptive Travel Agent</a>
+    <nav><a href="#history">运行历史</a><a href="/docs">API</a></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>把旅行想法<br>排成行程。</h1>
+      <p>输入目的地、预算和偏好，查看专家如何协作、规划和验证。</p>
+      <form id="planner">
+        <label for="request">你的旅行需求</label>
+        <textarea id="request" minlength="2" maxlength="1200" required placeholder="我想去东京和大阪玩五天，预算 5000 元人民币，喜欢动漫，不想走太多路。"></textarea>
+        <div class="actions">
+          <button type="submit" id="submit">生成行程 <span aria-hidden="true">↗</span></button>
+          <button type="button" class="quiet" id="sample">填入示例</button>
+          <label class="continuation" hidden><input type="checkbox" id="continue" checked> 延续当前行程</label>
+        </div>
+      </form>
+    </section>
+    <p id="notice" role="status" aria-live="polite"></p>
+    <div class="workspace">
+      <section class="panel" aria-labelledby="itinerary-heading">
+        <div class="section-head"><h2 id="itinerary-heading">行程</h2><span id="total"></span></div>
+        <div id="itinerary"><p class="empty">提交需求后，按天查看行程和来源。</p></div>
+        <div id="map-area" hidden>
+          <h3>行程地图</h3>
+          <p class="muted">实线显示已查询的道路路径。铁路、公交及未查到的路线只显示地点标记。</p>
+          <label for="map-day">地图范围</label>
+          <select id="map-day"></select>
+          <div id="map-routes"></div>
+          <p id="map-status" class="muted" role="status" hidden></p>
+          <div id="map" aria-label="行程地图"></div>
+          <ol id="map-key"></ol>
+        </div>
+      </section>
+      <section class="panel" aria-labelledby="trace-heading">
+        <div class="section-head"><h2 id="trace-heading">专家调度</h2></div>
+        <div id="graph"><p class="empty">任务依赖和激活记录将在这里出现。</p></div>
+        <ol id="events" class="events"></ol>
+        <div id="audit"></div>
+      </section>
+    </div>
+    <section class="panel" id="history"><div class="section-head"><h2>运行历史</h2></div><div id="runs"></div></section>
+  </main>
+</body>
+</html>
